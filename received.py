@@ -51,17 +51,6 @@ def find_invoice_status(code):
             return "Unhandled case code"
 
 
-def print_to_output():
-        print("Invoice Num: ",invoice_number)
-        print("Issue date: ",issue_date)
-        print("Invoice Status code = ", invoice_status_code)
-        print("Invoice Status: ", invoice_status)
-        print(json.dumps([sender, amount], indent=4))
-        print("amount paid: ", amount_paid)
-        print("====================")
-        print("")
-
-
 while True:
     token = input("Account's Bearer Token: ").strip()
     businessid = input("Account's business_id: ").strip()
@@ -76,9 +65,6 @@ headers = {'Authorization': f'Bearer {token}', 'Api-Version': 'alpha', 'Content-
 res = requests.get(url, data=None, headers=headers)
 json_data = res.json()
 dumps = json.dumps(json_data,indent=4)
-
-# print(dumps)
-
 num_pages = int(json_data['response']['result']['pages']) #2
 invoices = json_data['response']['result']['invoices']
 
@@ -115,7 +101,6 @@ with open(f'{accountid}_received_invoices.csv', 'w', newline="") as file:
                  amount['amount'],
                  amount_paid]
                  )
-
 
             # print("Invoice Num: ",invoice_number)
             # print("Issue date: ",issue_date)
